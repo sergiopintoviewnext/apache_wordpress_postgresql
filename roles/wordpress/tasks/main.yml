@@ -8,10 +8,24 @@
     mode: '0775'
     owner: www-data
     group: www-data
-  notify: Reinciar http/apache2
+  notify: Reiniciar apache2
+  when: ansible_distribution == "Debian"
+
+
+- name: Descargar, descomprimir Wordpress
+  ansible.builtin.unarchive:
+    src: http://wordpress.org/latest.tar.gz
+    dest: /var/www/html/
+    remote_src: true
+    mode: '0775'
+    owner: apache
+    group: apache
+  notify: Reiniciar httpd
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
 
 - name: Configuracion wp-config
-  ansible.builtin.include_tasks: wp-config.yml
-  notify: Reiniciar httpd/apache2
+  ansible.builtin.include_tasks:
+    file: wp-config.yml
 
 ...

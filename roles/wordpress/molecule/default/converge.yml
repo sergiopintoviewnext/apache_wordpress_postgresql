@@ -5,6 +5,6 @@
     - name: Incluir pre-tasks
       include_tasks: pre-tasks.yml
   tasks:
-    - name: "Include instalar_wordpress"
+    - name: "Include wordpress"
       include_role:
-        name: "instalar_wordpress"
+        name: "wordpress"

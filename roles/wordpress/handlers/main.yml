@@ -1,14 +1,16 @@
 ---
 
-- name: Reiniciar servicio httpd
-  ansible.builtin.service
+- name: Reiniciar httpd
+  ansible.builtin.service:
     name: httpd
     state: restarted
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
 
 
-- name: Reiniciar servicio apache
+- name: Reiniciar apache2
   ansible.builtin.service:
     name: apache2
     state: restarted
+  when: ansible_distribution == "Debian"
 
 ...
