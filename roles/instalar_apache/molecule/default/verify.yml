@@ -1,0 +1,36 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: true
+  tasks:
+   - name: Comprobar servicio httpd en Rhel8
+     ansible.builtin.service:
+       name: httpd
+       state: started
+     register: servicio_redhat
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+   - name: Assert servicio Rhel8
+     ansible.builtin.assert:
+       that: servicio_redhat.changed == false
+       success_msg: "El servicio httpd esta instalado y corriendo"
+       fail_msg: "El servicio httpd NO esta instalado o NO está corriendo"
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+   - name: Comprobar servicio apache2 en Debian
+     ansible.builtin.service: 
+       name: apache2
+       state: started
+     register: servicio_debian
+     when: ansible_distribution == "Debian"
+
+   - name: Assert servicio Debian
+     ansible.builtin.assert:
+       that: servicio_debian.changed == false
+       success_msg: "El servicio apache2 esta instalado y corriendo"
+       fail_msg: "El servicio apache2 NO esta instalado o NO está corriendo"
+     when: ansible_distribution == "Debian"

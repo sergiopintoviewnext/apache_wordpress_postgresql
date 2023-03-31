@@ -1,0 +1,17 @@
+---
+
+- name: Servicio httpd
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+- name: Servicio apache2
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+  when: ansible_distribution == "Debian"
+
+...

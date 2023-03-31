@@ -1,0 +1,10 @@
+---
+
+- name: Instalar apache2 Debian
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: true
+  notify: Servicio apache2
+  changed_when: true
+...

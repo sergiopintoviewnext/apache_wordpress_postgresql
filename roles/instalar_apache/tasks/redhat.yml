@@ -1,0 +1,10 @@
+---
+
+- name: Instalar apache Rhel8
+  ansible.builtin.yum:
+    name: httpd
+    state: present
+    update_cache: true
+  notify: Servicio httpd
+  changed_when: true
+...
