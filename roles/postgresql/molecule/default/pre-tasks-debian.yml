@@ -26,6 +26,7 @@
   with_items: 
     - postgresql-{{ version_postgresql }}
     - python3-psycopg2
+    - postgresql-contrib
 
 - name: Inicializar postgresql
   ansible.builtin.command:
