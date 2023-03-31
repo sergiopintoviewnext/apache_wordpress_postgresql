@@ -1,0 +1,41 @@
+---
+
+- name: Instalar php en Rhel8
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - php
+    - php-pgsql
+    - php-cli
+    - php-pdo
+    - php-gd
+    - php-mbstring
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+- name: Reiniciar servicio httpd
+  ansible.builtin.service
+    name: httpd
+    state: restarted
+
+- name: Instalar php en Debian
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - php
+    - php-pgsql
+    - php-cli
+    - libapache2-mod-php
+  when: ansible_distribution == "Debian"
+
+
+- name: Reiniciar servicio apache
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
+
+...

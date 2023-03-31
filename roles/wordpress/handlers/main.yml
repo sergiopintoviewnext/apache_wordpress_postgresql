@@ -1,0 +1,14 @@
+---
+
+- name: Reiniciar servicio httpd
+  ansible.builtin.service
+    name: httpd
+    state: restarted
+
+
+- name: Reiniciar servicio apache
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
+
+...
