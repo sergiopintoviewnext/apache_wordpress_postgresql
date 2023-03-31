@@ -12,6 +12,7 @@
     - php-pdo
     - php-gd
     - php-mbstring
+    - git
   when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
 
 
@@ -32,6 +33,7 @@
     - php-pgsql
     - php-cli
     - libapache2-mod-php
+    - git
   when: ansible_distribution == "Debian"
 
 

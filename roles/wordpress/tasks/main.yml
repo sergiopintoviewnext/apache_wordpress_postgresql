@@ -26,6 +26,11 @@
 
 - name: Configuracion wp-config
   ansible.builtin.include_tasks:
+    file: pg4wp.yml
+
+
+- name: Configuracion wp-config
+  ansible.builtin.include_tasks:
     file: wp-config.yml
 
 ...
