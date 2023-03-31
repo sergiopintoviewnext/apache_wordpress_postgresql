@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  vars:
+    version_postgresql: 15
+  pre_tasks:
+    - name: Incluir pre-tasks redhat
+      include_tasks: pre-tasks-redhat.yml
+      when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+    - name: Incluir pre-tasks debian
+      include_tasks: pre-tasks-debian.yml
+      when: ansible_distribution == "Debian"
+  tasks:
+    - name: "Include postgresql"
+      include_role:
+        name: "postgresql"

@@ -1,0 +1,14 @@
+#nombre db a crear
+db: wordpress
+
+
+#diccionario con informacion de usuarios
+
+info_usuarios:
+  - { nombre: wordpress,
+      password: 123456,
+      priv: ALL,
+      db: wordpress,
+      objs: wordpress,
+      type: database,
+      grant_option: false }

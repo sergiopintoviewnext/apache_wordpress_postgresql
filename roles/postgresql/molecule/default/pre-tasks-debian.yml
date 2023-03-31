@@ -1,0 +1,44 @@
+---
+
+- name: Instalar gnupg
+  ansible.builtin.apt:
+    name: gnupg
+    state: present
+    update_cache: true
+
+
+- name: Agregar clave GPG de postgresql Debian
+  ansible.builtin.apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+
+- name: Añadir repositorio postgresql Debian
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main
+    state: present
+
+- name: Instalar postgresql y psycopg2
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: 
+    - postgresql-{{ version_postgresql }}
+    - python3-psycopg2
+
+- name: Inicializar postgresql
+  ansible.builtin.command:
+    cmd: postgresql-{{ version_postgresql }}-setup initdb
+  register: ini_postgres
+  failed_when: ini_postgres.changed == "false"
+  changed_when: false
+
+
+- name: Iniciar servicio postgresql
+  ansible.builtin.service:
+    state: started
+    name: postgresql
+    enabled: true
+
+...

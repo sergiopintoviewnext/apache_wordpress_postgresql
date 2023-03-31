@@ -1,0 +1,19 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: true
+  vars:
+    version_postgresql: 15
+  tasks:
+    - name: Comprobar servicio postgresql Rhel8
+      ansible.builtin.service:
+        state: started
+        name: postgresql-{{ version_postgresql }}
+      when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+    - name: Comprobar servicio postgresql Debian
+      ansible.builtin.service:
+        state: started
+        name: postgresql
+      when: ansible_distribution == "Debian"

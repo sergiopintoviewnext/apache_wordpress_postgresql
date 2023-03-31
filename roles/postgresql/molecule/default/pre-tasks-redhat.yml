@@ -1,0 +1,34 @@
+---
+
+- name: Añadir repositorio postgresql Rhel8
+  ansible.builtin.yum:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+    disable_gpg_check: true
+
+
+- name: Instalar postgresql y psycopg2
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: 
+    - postgresql{{ version_postgresql }}-server
+    - python3-psycopg2
+
+
+- name: Inicializar postgresql
+  ansible.builtin.command:
+    cmd: postgresql-{{ version_postgresql }}-setup initdb
+  register: ini_postgres
+  failed_when: ini_postgres.changed == "false"
+  changed_when: false
+
+
+- name: Iniciar servicio postgresql
+  ansible.builtin.service:
+    state: started
+    name: postgresql-{{ version_postgresql }}
+    enabled: true
+
+...
