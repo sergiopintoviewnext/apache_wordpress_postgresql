@@ -2,7 +2,7 @@
 
 - name: Descargar, descomprimir Wordpress
   ansible.builtin.unarchive:
-    src: https://es.wordpress.org/wordpress-5.1.6-es_ES.tar.gz
+    src: "{{ version_wordpress }}"
     dest: /var/www/html/
     remote_src: true
     mode: '0775'
@@ -14,7 +14,7 @@
 
 - name: Descargar, descomprimir Wordpress
   ansible.builtin.unarchive:
-    src: https://es.wordpress.org/wordpress-5.1.6-es_ES.tar.gz
+    src: "{{ version_wordpress }}"
     dest: /var/www/html/
     remote_src: true
     mode: '0775'
