@@ -26,7 +26,7 @@
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_NAME', '{{ db_name }}' );"
-    search_string: "define( 'DB_NAME', 'database_name_here' );"
+    search_string: "define('DB_NAME', 'nombredetubasededatos');"
     state: present
 
 
@@ -34,7 +34,7 @@
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_USER', '{{ db_user }}' );"
-    search_string: "define( 'DB_USER', 'username_here' );"
+    search_string: "define('DB_USER', 'nombredeusuario');"
     state: present
 
 
@@ -42,7 +42,7 @@
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_PASSWORD', '{{ db_password }}' );"
-    search_string: "define( 'DB_PASSWORD', 'password_here' );"
+    search_string: "define('DB_PASSWORD', 'contraseña');"
     state: present
 
 - name: Añadir linea de puerto para la conexion con la base de datos
