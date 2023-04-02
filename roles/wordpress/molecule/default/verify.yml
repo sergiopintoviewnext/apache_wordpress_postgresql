@@ -9,13 +9,13 @@
       stat:
         path: /var/www/html/wordpress
       register: wordpress
- 
+
     - name: Comprobar que existe la carpeta /var/www/wordpress
       assert:
         that: wordpress.stat.exists == true
         success_msg: "Wordpress instalado"
         fail_msg: "Wordpress NO estainstalado"
- 
+
     - name: Stat de la carpeta /usr/bin/php
       stat:
         path: /usr/bin/php

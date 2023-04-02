@@ -1,13 +1,14 @@
 ---
 
-- name: Descargar de github pg4wp 
+- name: Descargar de github pg4wp
   ansible.builtin.git:
     repo: https://github.com/kevinoid/postgresql-for-wordpress.git
     dest: /opt
-
+    clone: true
+    version: wordpress4-compat
 
 - name: Copiar plugin pg4wp en wordpress
-  copy:
+  ansible.builtin.copy:
     src: /opt/pg4wp
     dest: /var/www/html/wordpress/wp-content/
     remote_src: true
@@ -15,7 +16,7 @@
 
 
 - name: Copiar fichero db.php en wp-content
-  copy:
+  ansible.builtin.copy:
     src: /var/www/html/wordpress/wp-content/pg4wp/db.php
     dest: /var/www/html/wordpress/wp-content/
     remote_src: true

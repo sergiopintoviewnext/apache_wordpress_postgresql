@@ -10,7 +10,7 @@
   ansible.builtin.stat:
     path: /var/www/html/wordpress/wp-config-sample.php
   register: fichero_ejemplo
-  when: fichero_config.stat.exists == false
+  when: not fichero_config.stat.exists
 
 
 - name: Crear fichero de configuracion utilizando el fichero de ejemplo
@@ -19,10 +19,10 @@
     dest: /var/www/html/wordpress/wp-config.php
     mode: '0775'
     remote_src: true
-  when: fichero_config.stat.exists == false
+  when: not fichero_config.stat.exists
 
 
-- name: Modificamos la linea de nombre de db para la conexion con la base de datos
+- name: Modificamos la linea de nombre de db para la conexion con la db
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_NAME', '{{ db_name }}' );"
@@ -30,7 +30,7 @@
     state: present
 
 
-- name: Modificamos la linea de usuario para la conexion con la base de datos
+- name: Modificamos la linea de usuario para la conexion con la db
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_USER', '{{ db_user }}' );"
@@ -38,7 +38,7 @@
     state: present
 
 
-- name: Modificamos la linea de passord para la conexion con la base de datos
+- name: Modificamos la linea de password para la conexion con la db
   ansible.builtin.lineinfile:
     path: /var/www/html/wordpress/wp-config.php
     line: "define( 'DB_PASSWORD', '{{ db_password }}' );"

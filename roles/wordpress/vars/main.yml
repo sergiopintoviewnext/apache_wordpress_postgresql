@@ -1,7 +1,9 @@
-#Credenciales para la conexion de wordpress con postgresql
+---
+
+# Credenciales para la conexion de wordpress con postgresql
 db_name: wordpress
 db_user: wordpress
 db_password: 123456
 
-#version de wordpress
+# Version de wordpress
 version_wordpress: https://es.wordpress.org/wordpress-5.1.6-es_ES.tar.gz
