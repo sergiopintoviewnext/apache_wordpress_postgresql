@@ -6,5 +6,5 @@
     state: present
     update_cache: true
   notify: Servicio apache2
-  changed_when: true
+
 ...

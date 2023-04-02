@@ -6,5 +6,5 @@
     state: present
     update_cache: true
   notify: Servicio httpd
-  changed_when: true
+
 ...
