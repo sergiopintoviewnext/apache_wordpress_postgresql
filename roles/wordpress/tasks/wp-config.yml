@@ -45,16 +45,4 @@
     search_string: "define('DB_PASSWORD', 'contraseña');"
     state: present
 
-- name: Añadir linea de puerto para la conexion con la base de datos
-  ansible.builtin.lineinfile:
-    path: /var/www/html/wordpress/wp-config.php
-    line: define('DB_PORT', '5432');
-    state: present
-
-- name: Añadir linea de puerto para la conexion con la base de datos
-  ansible.builtin.lineinfile:
-    path: /var/www/html/wordpress/wp-config.php
-    line: define('DB_TYPE', 'pgsql');
-    state: present
-
 ...

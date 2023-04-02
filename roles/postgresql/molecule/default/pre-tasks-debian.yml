@@ -18,6 +18,7 @@
     repo: deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main
     state: present
 
+
 - name: Instalar postgresql y psycopg2
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -27,6 +28,7 @@
     - postgresql-{{ version_postgresql }}
     - python3-psycopg2
     - postgresql-contrib
+
 
 - name: Inicializar postgresql
   ansible.builtin.command:

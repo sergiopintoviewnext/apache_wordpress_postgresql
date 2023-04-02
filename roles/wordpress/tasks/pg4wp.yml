@@ -5,12 +5,14 @@
     repo: https://github.com/kevinoid/postgresql-for-wordpress.git
     dest: /opt
 
+
 - name: Copiar plugin pg4wp en wordpress
   copy:
     src: /opt/pg4wp
     dest: /var/www/html/wordpress/wp-content/
     remote_src: true
     mode: '0775'
+
 
 - name: Copiar fichero db.php en wp-content
   copy:

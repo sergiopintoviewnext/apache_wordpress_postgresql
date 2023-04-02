@@ -17,6 +17,7 @@
     - python3-psycopg2
     - postgresql-contrib
 
+
 - name: Inicializar postgresql
   ansible.builtin.command:
     cmd: postgresql-{{ version_postgresql }}-setup initdb
