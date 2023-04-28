@@ -4,6 +4,8 @@
 - name: Verify
   hosts: all
   gather_facts: true
+  vars_files:
+    - main.yml
   vars:
     version_postgresql: 15
   tasks:
@@ -11,9 +13,44 @@
       ansible.builtin.service:
         state: started
         name: postgresql-{{ version_postgresql }}
+      register: servicio_redhat        
       when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+    - name: Assert servicio Rhel8
+      ansible.builtin.assert:
+        that: servicio_redhat.changed == false
+        success_msg: "El servicio postgresql esta instalado y corriendo en servidores RedHat"
+        fail_msg: "El servicio postgresql NO esta instalado o NO está corriendo en servidores RedHat"
+      when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
     - name: Comprobar servicio postgresql Debian
       ansible.builtin.service:
         state: started
         name: postgresql
+      register: servicio_debian
       when: ansible_distribution == "Debian"
+
+
+    - name: Assert servicio Debian
+      ansible.builtin.assert:
+        that: servicio_debian.changed == false
+        success_msg: "El servicio postgresql  esta instalado y corriendo en servidores Debian"
+        fail_msg: "El servicio postgresql NO esta instalado o NO está corriendo en servidores Debian"
+      when: ansible_distribution == "Debian"
+
+
+    - name: Comprobar conexion a la db con usuario
+      ansible.builtin.command:
+        cmd: 'psql "user={{ item.nombre }} host=127.0.0.1 password={{ item.password }} dbname={{ db }}"'
+      register: conexion
+      with_items: "{{ info_usuarios }}"
+
+
+    - name: Verificar conexion
+      ansible.builtin.assert:
+        that: item.rc == 0
+        success_msg: "Conexion realizada correctamente"
+      with_items: "{{ conexion.results }}"
+      

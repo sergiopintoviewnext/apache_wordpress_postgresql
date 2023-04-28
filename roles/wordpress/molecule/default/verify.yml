@@ -26,3 +26,14 @@
         that: php.stat.exists == true
         success_msg: "PHP instalado"
         fail_msg: "PHP NO estainstalado"
+
+    - name: Comprobar conexion a pagina de wordpress
+      ansible.builtin.uri:
+        url: http://localhost/wordpress
+      register: pagina
+
+    - name: Comprobar codigo http
+      assert:
+        that: pagina.status == 200
+        success_msg: "Wordpress funcionando correctamente"
+        fail_msg: "Wordpres no esta funcionando correctamente"

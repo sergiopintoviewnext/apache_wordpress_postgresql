@@ -1,0 +1,9 @@
+#nombre db a crear
+db: wordpress
+
+
+#diccionario con informacion de usuarios
+info_usuarios:
+  - { nombre: wordpress,
+      password: 123456,
+      role_attr: superuser }
